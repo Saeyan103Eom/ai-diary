@@ -1,0 +1,12 @@
+from pydantic import BaseModel, ConfigDict
+from typing import List
+
+class ToDoSchema(BaseModel):
+    id:int
+    contents:str
+    is_done:bool
+
+    model_config = ConfigDict(from_attributes=True)
+
+class ListToDoResponse(BaseModel):
+    todos : List[ToDoSchema]
