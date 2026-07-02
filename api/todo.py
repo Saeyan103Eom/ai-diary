@@ -44,7 +44,7 @@ def create_todo_handler(
         todo_repo: ToDoRepository = Depends(ToDoRepository),
 ) -> ToDoSchema:
     todo: ToDo = ToDo.create(request=request)
-    todo: ToDo | None = todo_repo.get_todo_by_todo_id(todo=todo)
+    todo: ToDo = todo_repo.create_todo(todo=todo)
     return ToDoSchema.from_orm(todo)
 
 
@@ -66,7 +66,7 @@ def update_todo_handler(
 def delete_todo_handler(
         todo_id:int,
         todo_repo: ToDoRepository = Depends(ToDoRepository),
-) -> ToDoSchema:
+) :
         todo: ToDo | None = todo_repo.get_todo_by_todo_id(todo_id=todo_id)
         if not todo:
             raise HTTPException(status_code=404, detail="Not Found")
